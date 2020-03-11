@@ -1,12 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  validateLogin(data) : boolean {
+  validateLogin(data) {
     if (data && data.userId === 'rajib' && data.password === 'welcome123') {
-      return true;
+     return true;
     } else {
-      return false;
+     throw new NotFoundException("user not fond..")
     }
   }
 }

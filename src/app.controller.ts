@@ -1,12 +1,29 @@
-import { Controller, Get, Request, Body } from '@nestjs/common';
+import { Controller, Get, Request, Body, Post, Res } from '@nestjs/common';
 import { AppService } from './app.service';
+class x{
+  userId:string;
+  password:string
 
+}
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('/login')
-  getValidate(@Body() data:any ): boolean {
-    return this.appService.validateLogin(data);
+  @Post('/login')
+  getValidate(@Body() data:x) {
+    try{
+      const result =  this.appService.validateLogin(data);
+      return {
+        status:true,
+        messege:"successfully loggedin.. :)"
+      }
+    }catch(err){
+      
+      return {
+        status:false,
+        messege:err.response.message
+      }
+    }
+   
   }
 }
